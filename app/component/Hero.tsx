@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Tharra from "@/app/assets/tharra.jpeg"
 
-export default function Hero() {
+export default function Hero () {
   const typingRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {

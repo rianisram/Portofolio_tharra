@@ -2,6 +2,7 @@
 import Footers from "../component/Footers";
 import Navbar from "../component/Navbar";
 import { useEffect, useState } from "react"; // Mengimpor hooks useEffect dan useState dari React
+import Image from "next/image";
 
 interface Project { // Mendefinisikan tipe data untuk proyek
   id: number;
@@ -63,7 +64,7 @@ export default function MyProjects() { // Mendefinisikan komponen utama MyProjec
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 "> {/* Grid untuk menampilkan daftar proyek */}
         {filteredProjects.map((project) => ( // Looping proyek yang sudah difilter
           <div key={project.id} className="border p-7 pr-2 pl-2 pt-1 pb-1 rounded-lg shadow-lg bg-[#FFF4EB]"> {/* Card proyek */}
-            <img src={project.image} alt={project.title} className="h-25 w-25 object-cover mb-2 rounded mt-2" /> {/* Gambar proyek */}
+            <Image src={project.image} alt={project.title} className="h-25 w-25 object-cover mb-2 rounded mt-2" /> {/* Gambar proyek */}
             <h3 className="text-xl font-semibold font-times mt-2 ">{project.title}</h3> {/* Judul proyek */}
             <p className="text-[#000000] font-times mt-2 text-ligth">{project.description}</p> {/* Deskripsi proyek */}
           </div>

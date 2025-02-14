@@ -10,7 +10,7 @@ interface Project { // Mendefinisikan tipe data untuk proyek
   image: string;
 }
 
-export default function MyProjects() { // Mendefinisikan komponen utama MyProjects
+export default function MyProjects () { // Mendefinisikan komponen utama MyProjects
   const [projects, setProjects] = useState<Project[]>([]); // State untuk menyimpan semua proyek dari API
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]); // State untuk proyek yang difilter
   const [activeCategory, setActiveCategory] = useState<string>("All"); // State untuk kategori yang dipilih
@@ -36,7 +36,7 @@ export default function MyProjects() { // Mendefinisikan komponen utama MyProjec
 
   return (
     <>
-    
+    <Navbar />
     <div className="container mx-auto p-4 mt-4"> {/* Container utama dengan padding */}
       <h2 className="text-5xl font-bold text-center mb-4 font-times mt-5">My Projects</h2> {/* Judul halaman */}
       <p className="text-center mb-3 mt-5 font-times text-lg "> {/* Paragraf deskripsi proyek */}

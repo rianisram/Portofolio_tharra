@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "../component/Navbar";
 import Footers from "../component/Footers";
 
-export default function Servicess() {
+export default function Servicess () {
     return (
         <>
         <Navbar />

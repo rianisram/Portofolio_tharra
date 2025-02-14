@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-const About = () => {
+export default function About  ()  {
     return (
         <div className=" flex flex-col justify-center items-center md:justify-center px-12 py-12 bg-white">
             <h1 className="font-bold text-5xl mb-4 font-times">About Me</h1>
@@ -28,4 +28,3 @@ const About = () => {
         </div>
     )
 };
-export default About;

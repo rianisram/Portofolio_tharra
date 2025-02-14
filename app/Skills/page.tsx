@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../component/Navbar";
 import Footers from "../component/Footers";
 
-const Skills = () => {
+export default function Skills () {
     return (
         <>
             <Navbar />
@@ -53,5 +53,4 @@ const Skills = () => {
         <Footers />
         </>
     )
-}
-export default Skills;
+};

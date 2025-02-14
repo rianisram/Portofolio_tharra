@@ -3,7 +3,7 @@ import React from "react"; // Mengimpor React untuk membuat komponen
 import { FaInstagram, FaLinkedin } from "react-icons/fa"; // Mengimpor ikon dari react-icons
 
 
-export default function () {
+export default function Footers () {
     return (
         <footer className="bg-[#FFF4EB] mt-4 p-1 md:justify-center items-end">
             {/* Footer utama dengan background biru dan teks putih */}

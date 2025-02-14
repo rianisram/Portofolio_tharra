@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 
-const Skillss = () => {
+export default function Skillss  () {
     return (
         <div className="flex flex-col justify-center md:justify-center py-10 ml-11 mr-11">
             <h1 className="font-bold text-[#000000] font-times text-6xl text-center mt-5">Skills</h1>
@@ -49,4 +49,3 @@ const Skillss = () => {
         </div>
     )
 }
-export default Skillss;
