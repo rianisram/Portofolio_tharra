@@ -99,7 +99,7 @@ export default function Portfolio() { // Mendefinisikan komponen utama Portfolio
           {categories.map((category, index) => (
             <button
             key={index}
-            className={` flex flex-row-reverse px-2 py-2 rounded-lg ${selectedCategory === category ? "bg-[#082CB8] text-white" : "bg-gray-200"}`} // Gaya tombol yang berubah jika kategori aktif
+            className={` flex flex-row-reverse px-2 py-2 rounded-lg ${selectedCategory === category ? "bg-[#082CB8] text-white" : "bg-[#FFF4EB]"}`} // Gaya tombol yang berubah jika kategori aktif
             onClick={() => setSelectedCategory(category)} // Mengubah kategori saat tombol diklik
             >
               {category} {/* Menampilkan kategori */}
