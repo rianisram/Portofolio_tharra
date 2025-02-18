@@ -16,7 +16,7 @@ export default function About () {
                     then also have experience as a technical writer for 1 year where learned from college projects as well.
                 </p>
 
-                <div className="mt-4 flex flex-wrap justify-center gap-6">
+                <div className="mt-9 flex flex-wrap justify-center gap-6 ">
                     <div className="flex flex-col items-center">
                         <span className="text-5xl font-bold text-[#FFEBDB] font-times">10</span>
                         <span className="font-bold text-[#082CB8] font-times">UI/UX Designer</span>

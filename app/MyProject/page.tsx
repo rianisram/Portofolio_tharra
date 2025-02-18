@@ -1,77 +1,139 @@
-"use client"; // Menggunakan directive "use client" karena ada penggunaan useState dan useEffect
-import Footers from "../component/Footers";
+"use client";
+
+import { useState } from "react"; // Mengimpor useState dari React untuk mengelola state
+import Image from "next/image"; // Mengimpor komponen Image dari Next.js untuk optimasi gambar
+import React from "react";
 import Navbar from "../component/Navbar";
-import { useEffect, useState } from "react"; // Mengimpor hooks useEffect dan useState dari React
-import Image from "next/image";
+import Footers from "../component/Footers";
+export default function Portfolio() { // Mendefinisikan komponen utama Portfolio
+  // Daftar kategori proyek
+  const categories = ["All", "UI/UX", "Web Design", "Mobile Design", "Writing"]; // Menambahkan kategori "All"
+  
+  const [selectedCategory, setSelectedCategory] = useState("All"); // State untuk menyimpan kategori yang dipilih
 
-interface Project { // Mendefinisikan tipe data untuk proyek
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-}
+  // Daftar proyek dengan kategori
+  const projects = [
+    {
+      title: "KFCKU", // Judul proyek
+      category: "Mobile Design", // Kategori proyek
+      description:
+        "KFCKU Mobile Application is a mobile application developed by fast food restaurant KFC. This application allows users to order food online, view the latest menus and promos, and get various benefits such as discounts and special offers. With KFCKU Mobile Application, customers can easily enjoy their favorite dishes from KFC without having to visit the restaurant directly.", // Deskripsi proyek
+      image: "/Images/KFCKU.png", // Path gambar proyek
+    },
+    {
+      title: "ChatApp", // Judul proyek
+      category: "Mobile Design", // Kategori proyek
+      description:
+        "This application can be used as a chat, which features otp codes, entering phone numbers, chat menus, and adding contacts using phone numbers. Actors of this application only consist of users.", // Deskripsi proyek
+      image: "/Images/ChatApp.png", // Path gambar proyek
+    },
+    {
+      title: "Wireframe Checkout", // Judul proyek
+      category: "Mobile Design", // Kategori proyek
+      description:
+        "In this checkout application wireframe I created several product storefronts that are sold with several menus that can be clicked by the user, and after the user chooses the product storefront, a checkout can be made to purchase the product.", // Deskripsi proyek
+      image: "/Images/Wireframe Checkout.png", // Path gambar proyek
+    },
+    {
+      title: "PT. Dirgantara Indonesia", // Judul proyek
+      category: "Web Design", // Kategori proyek
+      description:
+        "The PT DI Portal application is an application for storing document archives, viewing news related to PT DI, socialization info, employee info, archive needs for PT DI employees. This re-design is done with the UX Heuristic Evaluation method.", // Deskripsi proyek
+      image: "/Images/PT.Dirgantara Indonesia.png", // Path gambar proyek
+    },
+    {
+      title: "PT. Windira Cipta Mandiri", // Judul proyek
+      category: "Web Design", // Kategori proyek
+      description:
+        "This PT Windira Cipta Mandiri website consists of 2 actors, namely admins and bookers containing train tickets, airplane tickets, and also hotel reservations that can be made payments. ", // Deskripsi proyek
+      image: "/Images/PT.Windira Cipta Mandiri.png", // Path gambar proyek
+    },
+    {
+      title: "IDestinasi", // Judul proyek
+      category: "Web Design", // Kategori proyek
+      description:
+        "The Idestination website application is an application that primarily has the aim of managing tours and booking tours. This website has 3 actors, namely admin, tourists, and tour managers. In this website, the features that are prioritized are tourist attraction information, explore tours, purchase tour tours.", // Deskripsi proyek
+      image: "/Images/IDestinasi (3).png", // Path gambar proyek
+    },
+    {
+      title:"E-Cycle",
+      category: "UI/UX",
+      description:" E-Cycle is a waste bank application that is equipped with several features to find the nearest location of the waste bank in the form of a map and is equipped with an education feature to increase public insight in managing waste and can exchange points earned into electronic money or cash.",
+      image: "/Images/E-Cycle (2).png",
+    },
+    {
+      title:"KFCKU",
+      category: "UI/UX",
+      description: "KFCKU Mobile Application is a mobile application developed by fast food restaurant KFC. This application allows users to order food online, view the latest menus and promos, and get various benefits such as discounts and special offers. With KFCKU Mobile Application, customers can easily enjoy their favorite dishes from KFC without having to visit the restaurant directly.",
+      image: "/Images/KFCKU.png",
+    },
+    {
+      title:"Jakaya Catering",
+      category: "UI/UX",
+      description: "Jakaya Catering application is a catering service application consisting of 3 actors, namely the merchant (catering service provider), admin (customer catering order manager and merchant manager), customer (as a catering service orderer). Application development is designed to help control catering services and catering reservations.",
+      image: "/Images/Jayaka Catering.png",
+    },
+    {
+      title:"Technical Writer Document",
+      category: "Writing",
+      description: "This technical writer involves website development, cost management, requirement management plan, system requirement software, scope management, and also system testing from the website development.",
+      image: "/Images/Technical Writer.png",
+    },
+  ];
 
-export default function MyProjects() { // Mendefinisikan komponen utama MyProjects
-  const [projects, setProjects] = useState<Project[]>([]); // State untuk menyimpan semua proyek dari API
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]); // State untuk proyek yang difilter
-  const [activeCategory, setActiveCategory] = useState<string>("All"); // State untuk kategori yang dipilih
-
-  useEffect(() => { // Menggunakan useEffect untuk fetch data saat komponen pertama kali dirender
-    fetch("http://localhost:3000/api/project") // Memanggil API lokal untuk mendapatkan daftar proyek
-      .then((res) => res.json()) // Mengonversi response menjadi JSON
-      .then((data) => { // Setelah data didapatkan, lakukan:
-        setProjects(data); // Simpan semua proyek dalam state projects
-        setFilteredProjects(data); // Awalnya, semua proyek juga masuk ke state filteredProjects
-      })
-      .catch((error) => console.error("Error fetching projects:", error)); // Menampilkan error jika gagal fetch data
-  }, []); // useEffect hanya dijalankan sekali saat komponen pertama kali dimuat
-
-  const filterProjects = (category: string) => { // Fungsi untuk memfilter proyek berdasarkan kategori
-    setActiveCategory(category); // Set kategori aktif sesuai tombol yang diklik
-    if (category === "All") { // Jika kategori "All" dipilih
-      setFilteredProjects(projects); // Tampilkan semua proyek
-    } else {
-      setFilteredProjects(projects.filter((project) => project.category === category)); // Filter proyek berdasarkan kategori
-    }
-  };
+  // Filter proyek berdasarkan kategori yang dipilih
+  const filteredProjects = selectedCategory === "All"
+    ? projects // Jika kategori "All" dipilih, tampilkan semua proyek
+    : projects.filter(project => project.category === selectedCategory); // Jika kategori lain dipilih, filter proyek sesuai kategori
 
   return (
     <>
     <Navbar />
-    
-    <div className="container mx-auto p-4 mt-4"> {/* Container utama dengan padding */}
-      <h2 className="text-5xl font-bold text-center mb-4 font-times mt-5">My Projects</h2> {/* Judul halaman */}
-      <p className="text-center mb-3 mt-5 font-times text-lg "> {/* Paragraf deskripsi proyek */}
-      The projects I have vary from UI/UX, Web design, mobile design, and writing.
-       Each project I have has various characteristics such as designing company websites, campus projects, and bootcamp projects.
-      </p>
-
-      <div className="flex justify-center mb-6 mt-7 md:justify-center gap-4" > {/* Container untuk tombol kategori */}
-        {["All","UI/UX","Web Design", "Mobile Design", "Writing"].map((category) => ( // Looping kategori
-          <button
-          key={category} // Key unik untuk setiap tombol kategori
-          onClick={() => filterProjects(category)} // Memanggil fungsi filterProjects saat tombol diklik
-          className={`px-2 py-2 border rounded-lg ${
-            activeCategory === category ? "bg-[#082CB8] text-white font-times md:justify-between" : "bg-gray-200"
-          }`} // Mengubah warna tombol jika kategori aktif
-          >
-            {category} {/* Menampilkan nama kategori */}
-          </button>
-        ))}
+    <div className="min-h-screen p-8"> {/* Wrapper utama dengan background abu-abu */}
+      {/* Header dan Deskripsi Halaman */}
+      <div className="max-w-4xl mx-auto text-center text-[#000000] mt-4"> {/* Container untuk header */}
+        <h1 className="text-4xl font-bold font-times text-[#000000] mt-3">My Projects</h1> {/* Judul halaman portofolio */}
+        <p className="text-[#000000] font-times mt-4"> {/* Deskripsi proyek */}
+        The projects I have vary from UI/UX, Web design, mobile design, and writing. 
+        Each project I have has various characteristics such as designing company websites, 
+        campus projects, and bootcamp projects.
+        </p>
+        {/* Kategori Filter */}
+        <div className="flex justify-center mt-7 font-times gap-3"> {/* Container untuk tombol filter kategori */}
+          {categories.map((category, index) => (
+            <button
+            key={index}
+            className={`flex flex-row-reverse md:text-center px-2 py-2 rounded-lg gap-2 font-times ${selectedCategory === category ? "bg-[#082CB8] text-white" : "bg-[#FFF4EB]"}`} // Gaya tombol yang berubah jika kategori aktif
+            onClick={() => setSelectedCategory(category)} // Mengubah kategori saat tombol diklik
+            >
+              {category} {/* Menampilkan kategori */}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 "> {/* Grid untuk menampilkan daftar proyek */}
-        {filteredProjects.map((project) => ( // Looping proyek yang sudah difilter
-          <div key={project.id} className="border p-7 pr-2 pl-2 pt-1 pb-1 rounded-lg shadow-lg bg-[#FFF4EB]"> {/* Card proyek */}
-            <Image src={project.image} alt={project.title} className="h-25 w-25 object-cover mb-2 rounded mt-2" /> {/* Gambar proyek */}
-            <h3 className="text-xl font-semibold font-times mt-2 ">{project.title}</h3> {/* Judul proyek */}
-            <p className="text-[#000000] font-times mt-2 text-ligth">{project.description}</p> {/* Deskripsi proyek */}
+      {/* Daftar Proyek */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-6xl mx-auto"> {/* Grid untuk menampilkan proyek */}
+        {filteredProjects.map((project, index) => (
+          <div key={index} className="bg-[#FFF4EB] p-3 pr-2 pl-2 shadow-md rounded-lg"> {/* Card proyek */}
+            {/* Gambar Proyek */}
+            <Image
+              src={project.image} // Menampilkan gambar proyek
+              alt={project.title} // Alternatif teks untuk aksesibilitas
+              width={350} // Lebar gambar
+              height={200} // Tinggi gambar
+              className="rounded-lg" // Styling gambar dengan sudut membulat
+              />
+            {/* Judul dan Kategori Proyek */}
+            <h2 className="text-xl font-bold mt-4 font-times text-start text-[#000000]">{project.title}</h2> {/* Judul proyek */}
+            {/* <p className="text-sm text-[#000000] font-times">{project.category}</p> Kategori proyek dengan warna biru */}
+            {/* Deskripsi Proyek */}
+            <p className="text-[#000000] mt-5 text-s font-times text-start">{project.description}</p> {/* Deskripsi proyek */}
           </div>
         ))}
       </div>
     </div>
-    <Footers />
-    </>
+  <Footers />
+  </>
   );
 }
